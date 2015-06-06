@@ -383,7 +383,7 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phas
         if is_test_phase:
             save_path = ("%0.3f" % np.random.rand())+"pred.pickle"
             print "saving preds to {}".format(save_path)
-            print preds
+            print type(preds)
             utils.save_pickle(save_path, preds)
         targets = np.array(data[1])[valid_index]
         valid_err += (preds == targets).sum()
