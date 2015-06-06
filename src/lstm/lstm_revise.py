@@ -24,7 +24,6 @@ np.random.seed(SEED)
 def np_floatX(data):
     return np.asarray(data, dtype=config.floatX)
 
-
 def get_minibatches_idx(n, minibatch_size, shuffle=False):
     """
     Used to shuffle the dataset at each iteration.
@@ -48,10 +47,8 @@ def get_minibatches_idx(n, minibatch_size, shuffle=False):
 
     return zip(range(len(minibatches)), minibatches)
 
-
 def get_dataset(name):
     return datasets[name][0], datasets[name][1]
-
 
 def zipp(params, tparams):
     """
@@ -59,7 +56,6 @@ def zipp(params, tparams):
     """
     for kk, vv in params.iteritems():
         tparams[kk].set_value(vv)
-
 
 def unzip(zipped):
     """
@@ -70,8 +66,10 @@ def unzip(zipped):
         new_params[kk] = vv.get_value()
     return new_params
 
-
 def dropout_layer(state_before, use_noise, trng):
+    """
+    default dropout rate is 0.5
+    """
     proj = tensor.switch(use_noise,
                          (state_before *
                           trng.binomial(state_before.shape,
@@ -128,6 +126,9 @@ def get_layer(name):
 
 
 def ortho_weight(ndim):
+    """
+    u will be same size with W if W is square
+    """
     W = np.random.randn(ndim, ndim)
     u, s, v = np.linalg.svd(W)
     return u.astype(config.floatX)
@@ -326,6 +327,7 @@ def build_model(tparams, options):
     if options['encoder'] == 'lstm':
         proj = (proj * mask[:, :, None]).sum(axis=0)
         proj = proj / mask.sum(axis=0)[:, None]
+
     if options['use_dropout']:
         proj = dropout_layer(proj, use_noise, trng)
 
@@ -391,7 +393,7 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phas
 
 
 def train_lstm(
-    dim_proj=128,  # word embeding dimension and LSTM number of hidden units.
+    dim_proj=300,  # word embeding dimension and LSTM number of hidden units.
     patience=10,  # Number of epoch to wait before early stop if no progress
     max_epochs=5000,  # The maximum number of epoch to run
     dispFreq=10,  # Display to stdout the training progress every N updates
