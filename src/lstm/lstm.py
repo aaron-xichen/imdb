@@ -373,19 +373,25 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phas
     prepare_data: usual prepare_data for that dataset.
     """
     valid_err = 0
+    all_preds = None
     for _, valid_index in iterator:
         x, mask, y = prepare_data([data[0][t] for t in valid_index],
                                   np.array(data[1])[valid_index],
                                   maxlen=None)
         preds = f_pred(x, mask)
         if is_test_phase:
-            save_path = ("%0.3f" % np.random.rand())+"pred.pickle"
-            print "saving preds to {}".format(save_path)
-            print type(preds)
-            utils.save_pickle(save_path, preds)
+            if all_preds is None:
+                all_preds = preds
+            else:
+                all_preds = np.concatenate([all_preds, preds])
         targets = np.array(data[1])[valid_index]
         valid_err += (preds == targets).sum()
     valid_err = 1. - np_floatX(valid_err) / len(data[0])
+    if is_test_phase:
+        save_path = ("%0.3f" % np.random.rand())+"pred.pickle"
+        print "saving preds to {}".format(save_path)
+        print all_preds.shape
+        utils.save_pickle(save_path, all_preds)
 
     return valid_err
 
