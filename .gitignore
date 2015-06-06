@@ -6,4 +6,5 @@
 *.tsv
 *.pdf
 *.pkl
+*.pickle
 

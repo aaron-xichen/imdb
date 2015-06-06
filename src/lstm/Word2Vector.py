@@ -17,13 +17,13 @@ class Word2Vector:
     def __init__(self):
         dirname = "/users/cxlyc007/Dropbox/repository/lmdb/dataset/"
         print dirname
-        self.labeled_train_data_path = os.join(dirname, "labeledTrainData.tsv")
-        self.test_data_path = os.join(dirname, "testData.tsv")
-        self.unlabeled_train_data_path = os.join(dirname, "unlabeledTrainData.tsv")
-        self.sample_submission_path = os.join(dirname,"sampleSubmission.csv")
-        self.model_save_dir = os.join(dirname,"model")
-        self.prediction_dir = os.join(dirname,"prediction")
-        self.dataset_dir = os.join(dirname, "dataset")
+        self.labeled_train_data_path = os.path.join(dirname, "labeledTrainData.tsv")
+        self.test_data_path = os.path.join(dirname, "testData.tsv")
+        self.unlabeled_train_data_path = os.path.join(dirname, "unlabeledTrainData.tsv")
+        self.sample_submission_path = os.path.join(dirname,"sampleSubmission.csv")
+        self.model_save_dir = os.path.join(dirname,"model")
+        self.prediction_dir = os.path.join(dirname,"prediction")
+        self.dataset_dir = os.path.join(dirname, "dataset")
 
     # load data
     def loadLabeledTrainData(self):

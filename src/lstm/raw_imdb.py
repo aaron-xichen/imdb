@@ -4,7 +4,6 @@ import os
 
 import numpy
 import theano
-import utils
 
 
 def prepare_data(seqs, labels, maxlen=None):
@@ -102,17 +101,18 @@ def load_data(path="imdb.pkl", n_words=100000, valid_portion=0.1, maxlen=None,
     #############
 
     # Load the dataset
-    # path = get_dataset_file(
-        # path, "imdb.pkl",
-        # "http://www.iro.umontreal.ca/~lisa/deep/data/imdb.pkl")
+    path = get_dataset_file(
+        path, "imdb.pkl",
+        "http://www.iro.umontreal.ca/~lisa/deep/data/imdb.pkl")
 
-    # if path.endswith(".gz"):
-        # f = gzip.open(path, 'rb')
-    # else:
-        # f = open(path, 'rb')
+    if path.endswith(".gz"):
+        f = gzip.open(path, 'rb')
+    else:
+        f = open(path, 'rb')
 
-    train_set = utils.load_pickle("encode_train_reviews.pickle")
-    test_set = utils.load_pickle("encode_train_reviews.pickle")
+    train_set = cPickle.load(f)
+    test_set = cPickle.load(f)
+    f.close()
     if maxlen:
         new_train_set_x = []
         new_train_set_y = []
