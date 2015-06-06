@@ -366,7 +366,7 @@ def pred_probs(f_pred_prob, prepare_data, data, iterator, verbose=False):
     return probs
 
 
-def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phase=True):
+def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phase=False, n_epoch=None):
     """
     Just compute the error
     f_pred: Theano fct computing the prediction
@@ -388,7 +388,7 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phas
         valid_err += (preds == targets).sum()
     valid_err = 1. - np_floatX(valid_err) / len(data[0])
     if is_test_phase:
-        save_path = ("%0.3f" % np.random.rand())+"pred.pickle"
+        save_path = str(n_epoch) +"_pred.pickle"
         print "saving preds to {}".format(save_path)
         print all_preds.shape
         utils.save_pickle(save_path, all_preds)
@@ -545,7 +545,7 @@ def train_lstm(
                     train_err = pred_error(f_pred, prepare_data, train, kf)
                     valid_err = pred_error(f_pred, prepare_data, valid,
                                            kf_valid)
-                    test_err = pred_error(f_pred, prepare_data, test, kf_test)
+                    test_err = pred_error(f_pred, prepare_data, test, kf_test, is_test_phase=True, n_epoch=eidx)
 
                     history_errs.append([valid_err, test_err])
 
