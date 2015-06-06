@@ -15,7 +15,7 @@ import time
 
 class Word2Vector:
     def __init__(self):
-        dirname = "/users/cxlyc007/Dropbox/repository/lmdb/dataset/"
+        dirname = "/users/cxlyc007/Dropbox/repository/imdb/dataset/"
         print dirname
         self.labeled_train_data_path = os.path.join(dirname, "labeledTrainData.tsv")
         self.test_data_path = os.path.join(dirname, "testData.tsv")

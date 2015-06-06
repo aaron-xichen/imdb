@@ -46,6 +46,6 @@ for review in clean_test_reviews:
 assert len(encode_train_reviews) == len(train_labels)
 train = (encode_train_reviews, train_labels)
 
-utils.save_pickle("encode_train_reviews.pickle", encode_train_reviews)
+utils.save_pickle("encode_train_reviews.pickle", train)
 utils.save_pickle("encode_test_reviews.pickle", encode_test_reviews)
 utils.save_pickle("dicts.pickle", dicts)

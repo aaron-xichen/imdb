@@ -112,7 +112,7 @@ def load_data(path="imdb.pkl", n_words=100000, valid_portion=0.1, maxlen=None,
         # f = open(path, 'rb')
 
     train_set = utils.load_pickle("encode_train_reviews.pickle")
-    test_set = utils.load_pickle("encode_train_reviews.pickle")
+    test_set = utils.load_pickle("encode_test_reviews.pickle")
     if maxlen:
         new_train_set_x = []
         new_train_set_y = []
