@@ -1,0 +1,9 @@
+*.vec
+*.npy
+*.model
+*.pyc
+*.csv
+*.tsv
+*.pdf
+*.pkl
+
