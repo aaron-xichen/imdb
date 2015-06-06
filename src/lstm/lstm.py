@@ -379,6 +379,7 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False, is_test_phas
                                   np.array(data[1])[valid_index],
                                   maxlen=None)
         preds = f_pred(x, mask)
+        # need to save the testing data
         if is_test_phase:
             if all_preds is None:
                 all_preds = preds
@@ -431,6 +432,9 @@ def train_lstm(
     print 'Loading data'
     train, valid, test = load_data(n_words=n_words, valid_portion=0.05,
                                    maxlen=maxlen)
+    print "train:", len(train[0])
+    print "valid:", len(valid[0])
+    print "test:", len(test[0])
     if test_size > 0:
         # The test set is sorted by size, but we want to keep random
         # size example.  So we must select a random selection of the
