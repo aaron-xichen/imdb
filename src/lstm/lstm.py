@@ -435,6 +435,7 @@ def train_lstm(
     print "train:", len(train[0])
     print "valid:", len(valid[0])
     print "test:", len(test[0])
+
     if test_size > 0:
         # The test set is sorted by size, but we want to keep random
         # size example.  So we must select a random selection of the
@@ -444,6 +445,7 @@ def train_lstm(
         idx = idx[:test_size]
         test = ([test[0][n] for n in idx], [test[1][n] for n in idx])
 
+    print "1test:", len(test[0])
     ydim = np.max(train[1]) + 1
 
     model_options['ydim'] = ydim
@@ -453,6 +455,7 @@ def train_lstm(
     # Dict name (string) -> np ndarray
     params = init_params(model_options)
 
+    print "2test:", len(test[0])
     if reload_model:
         load_params('lstm_model.npz', params)
 
@@ -461,6 +464,7 @@ def train_lstm(
     # params and tparams have different copy of the weights.
     tparams = init_tparams(params)
 
+    print "3test:", len(test[0])
     # use_noise is for dropout
     (use_noise, x, mask,
      y, f_pred_prob, f_pred, cost) = build_model(tparams, model_options)
